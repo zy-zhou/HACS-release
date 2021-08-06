@@ -19,9 +19,9 @@ Original data we used is from https://github.com/xing-hu/TL-CodeSum and https://
 If you want to try some new data (in Java), simply reference and replace **raw_data.json** in the **data** folder. The code to shuffle and remove the duplicate samples is not included so you have to manually do this if required.
 
 ## Parsing & Preprocessing
-* First parse the codes into ASTs and then split ASTs into statement subtrees. Codes that cannot be parsed or less than 2 statements (e.g., empty body) will be marked for discard.  
+* First parse the codes into ASTs and then split them into statement subtrees. Codes that cannot be parsed or less than 2 statements (e.g., empty body) will be marked for discard.  
   `python Tree.py`
-* Tokenize the codes and comments, and split the codes by statement. A formatter (Artistic Style) is used here. Comments that are less than 1 token will be marked for discard. Then the remaining samples will be split into train/valid/test sets. Vocabularies will also be generated during this step.  
+* Filter & tokenize the codes and comments, and then split the codes by statement. A formatter (Artistic Style) is used here. Comments that are less than 1 token after tokenization will be marked for discard. The remaining samples will be split into train/valid/test sets. Vocabularies will also be generated during this step.  
   `python Data.py`
 
 ## Build & Train the model

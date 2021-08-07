@@ -25,7 +25,7 @@ If you want to try some new data (in Java), simply reference and replace **raw_d
   `python Data.py`
 
 ## Build & Train the model
-* The **Train** script will pretrain a pair of biLSTM models on token/node sequences and then use the encoders to initialize HACS-token/AST. Then HACS-token/AST will be trained.  
+* The **Train** script will pretrain a pair of biLSTM models on token/node sequences and then use the encoders to initialize HACS-token/AST. After that, HACS-token/AST will be trained.  
   `python Train.py`
 
 ## Test & Evaluate the model

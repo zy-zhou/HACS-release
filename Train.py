@@ -160,6 +160,8 @@ class Trainer(object):
                     print('Early stopped at epoch ' + str(self.curr_epoch))
                     print('Best validating score reached at epoch ' + str(self.best_epoch))
                     break
+            elif self.save_path:
+                self.save_states()
             
         return self.log
     

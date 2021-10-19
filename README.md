@@ -33,4 +33,4 @@ If you want to try some new data (in Java), simply reference and replace **raw_d
   `python Main.py`
 
 ## Change the Parameters
-All parameters are defined in the beginning of the .py files. By default, 2-layer biLSTM with 256 hidden units and embedding size is used as encoders. We will make the scripts easier to use in the future （e.g., by using argparse).
+All parameters are defined in the beginning of the .py files. We will make the scripts easier to use in the future （e.g., by using argparse).

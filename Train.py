@@ -22,7 +22,6 @@ optimizer = 'adam'
 max_grad_norm = 5
 lr_decay = None
 patience = 4
-val_metric = 'bleu'
 
 def get_optimizer(optimizer, lr, params):
     params = filter(lambda p: p.requires_grad, params)
@@ -42,7 +41,7 @@ def get_optimizer(optimizer, lr, params):
 class Trainer(object):
     def __init__(self, model, epoches=epoches, optimizer=optimizer, lr=lr,
                  max_grad_norm=max_grad_norm, lr_decay=lr_decay, metrics=['loss'],
-                 val_metric=val_metric, save_path=None, load_path=None, patience=patience,
+                 val_metric='loss', save_path=None, load_path=None, patience=patience,
                  save_per_epoch=True, **kwargs):
         self.model = model
         self.pad_id = model.decoder.field.vocab.stoi[pad]

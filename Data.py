@@ -27,7 +27,6 @@ statm_maxlen = 100
 code_vocab_size = 35000
 nl_vocab_size = 25000
 batch_size = 64
-epoches = 15
 # special tokens
 bos = '<s>'
 eos = '</s>'

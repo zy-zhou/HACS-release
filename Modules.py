@@ -12,9 +12,9 @@ from collections import namedtuple
 from Utils import sequence_mask, tuple_map
 from Data import pad
 
-word_embed = 256
+word_embed = 128
 lstm_units = 256
-num_layers = 2
+num_layers = 1
 bidirectional = True
 dropout = 0.3
 glob_attn = 'mul'

@@ -219,6 +219,7 @@ if __name__ == '__main__':
                              save_path='checkpoints/bilstm_token.pt')
     reports = trainer(train_gen, val_gen)
     
+    trainer.load_states('checkpoints/bilstm_token.pt')
     print('Training HACS-token...')
     train_gen, fields = load_data('statms', 'train')
     val_gen, _ = load_data('statms', 'valid')
@@ -240,6 +241,7 @@ if __name__ == '__main__':
                              save_path='checkpoints/bilstm_node.pt')
     reports = trainer(train_gen, val_gen)
     
+    trainer.load_states('checkpoints/bilstm_node.pt')
     print('Training HACS-AST...')
     train_gen, fields = load_data('split_ast', 'train')
     val_gen, _ = load_data('split_ast', 'valid')

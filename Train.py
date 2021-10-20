@@ -22,6 +22,7 @@ optimizer = 'adam'
 max_grad_norm = 5
 lr_decay = None
 patience = 4
+val_metric = 'bleu'
 
 def get_optimizer(optimizer, lr, params):
     params = filter(lambda p: p.requires_grad, params)
@@ -41,7 +42,7 @@ def get_optimizer(optimizer, lr, params):
 class Trainer(object):
     def __init__(self, model, epoches=epoches, optimizer=optimizer, lr=lr,
                  max_grad_norm=max_grad_norm, lr_decay=lr_decay, metrics=['loss'],
-                 val_metric='loss', save_path=None, load_path=None, patience=patience,
+                 val_metric=val_metric, save_path=None, load_path=None, patience=patience,
                  save_per_epoch=True, **kwargs):
         self.model = model
         self.pad_id = model.decoder.field.vocab.stoi[pad]
@@ -219,17 +220,34 @@ if __name__ == '__main__':
     reports = trainer(train_gen, val_gen)
     
     trainer.load_states('checkpoints/bilstm_token.pt')
+    pretrn_model = model
     print('Training HACS-token...')
     train_gen, fields = load_data('statms', 'train')
     val_gen, _ = load_data('statms', 'valid')
-    model = build_model('hacs', fields, pretrn_encoder=model.encoder)
+    model = build_model('hacs', fields)
+    model.encoder.token_encoder = pretrn_model.encoder.token_encoder
+    model.decoder.embedding = pretrn_model.decoder.embedding
+    model.decoder.cell.cell = pretrn_model.decoder.cell.cell
+    for param in pretrn_model.parameters():
+        param.requires_grad = False
     
     trainer = TeacherForcing(model, metrics=['loss', 'bleu'], smooth=0, save_per_epoch=False,
-                             save_path='checkpoints/HACS-token.pt')
+                             epoches=10, save_path='checkpoints/HACS-token.pt')
+    reports = trainer(train_gen, val_gen)
+    
+    for param in pretrn_model.parameters():
+        param.requires_grad = True
+    trainer.optimizer.add_param_group({'params': model.encoder.token_encoder.parameters(), 'lr': 0.0001})
+    trainer.optimizer.add_param_group({'params': model.decoder.embedding.parameters(), 'lr': 0.0001})
+    trainer.optimizer.add_param_group({'params': model.decoder.cell.cell.parameters(), 'lr': 0.0001})
+    trainer.epoches = epoches - 10
     reports = trainer(train_gen, val_gen)
     
     del trainer, model
     torch.cuda.empty_cache()
+    
+############################################################################################
+
     print('Pretraining node-level biLSTM...')
     train_gen, fields = load_data('nodes', 'train')
     val_gen, _ = load_data('nodes', 'valid')
@@ -241,12 +259,26 @@ if __name__ == '__main__':
     reports = trainer(train_gen, val_gen)
     
     trainer.load_states('checkpoints/bilstm_node.pt')
+    pretrn_model = model
     print('Training HACS-AST...')
     train_gen, fields = load_data('split_ast', 'train')
     val_gen, _ = load_data('split_ast', 'valid')
-    model = build_model('hacs', fields, pretrn_encoder=model.encoder)
+    model = build_model('hacs', fields)
+    model.encoder.token_encoder = pretrn_model.encoder.token_encoder
+    model.decoder.embedding = pretrn_model.decoder.embedding
+    model.decoder.cell.cell = pretrn_model.decoder.cell.cell
+    for param in pretrn_model.parameters():
+        param.requires_grad = False
     
     trainer = TeacherForcing(model, metrics=['loss', 'bleu'], smooth=0, save_per_epoch=False,
-                             save_path='checkpoints/HACS-AST.pt')
+                             epoches=10, save_path='checkpoints/HACS-AST.pt')
+    reports = trainer(train_gen, val_gen)
+    
+    for param in pretrn_model.parameters():
+        param.requires_grad = True
+    trainer.optimizer.add_param_group({'params': model.encoder.token_encoder.parameters(), 'lr': 0.0001})
+    trainer.optimizer.add_param_group({'params': model.decoder.embedding.parameters(), 'lr': 0.0001})
+    trainer.optimizer.add_param_group({'params': model.decoder.cell.cell.parameters(), 'lr': 0.0001})
+    trainer.epoches = epoches - 10
     reports = trainer(train_gen, val_gen)
     

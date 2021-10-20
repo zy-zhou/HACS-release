@@ -237,9 +237,9 @@ if __name__ == '__main__':
     
     for param in pretrn_model.parameters():
         param.requires_grad = True
-    trainer.optimizer.add_param_group({'params': model.encoder.token_encoder.parameters(), 'lr': 0.0001})
-    trainer.optimizer.add_param_group({'params': model.decoder.embedding.parameters(), 'lr': 0.0001})
-    trainer.optimizer.add_param_group({'params': model.decoder.cell.cell.parameters(), 'lr': 0.0001})
+    trainer.optimizer.add_param_group({'params': model.encoder.token_encoder.parameters(), 'lr': lr / 10})
+    trainer.optimizer.add_param_group({'params': model.decoder.embedding.parameters(), 'lr': lr / 10})
+    trainer.optimizer.add_param_group({'params': model.decoder.cell.cell.parameters(), 'lr': lr / 10})
     trainer.epoches = epoches - 10
     reports = trainer(train_gen, val_gen)
     
@@ -276,9 +276,9 @@ if __name__ == '__main__':
     
     for param in pretrn_model.parameters():
         param.requires_grad = True
-    trainer.optimizer.add_param_group({'params': model.encoder.token_encoder.parameters(), 'lr': 0.0001})
-    trainer.optimizer.add_param_group({'params': model.decoder.embedding.parameters(), 'lr': 0.0001})
-    trainer.optimizer.add_param_group({'params': model.decoder.cell.cell.parameters(), 'lr': 0.0001})
+    trainer.optimizer.add_param_group({'params': model.encoder.token_encoder.parameters(), 'lr': lr / 10})
+    trainer.optimizer.add_param_group({'params': model.decoder.embedding.parameters(), 'lr': lr / 10})
+    trainer.optimizer.add_param_group({'params': model.decoder.cell.cell.parameters(), 'lr': lr / 10})
     trainer.epoches = epoches - 10
     reports = trainer(train_gen, val_gen)
     

@@ -41,17 +41,14 @@ def load_data(name, mode='train', batch_size=64, **kwargs):
         data_gen = EnsembleHANDataGen((statms, split_ast, tgt), fields, **kwargs)
     return data_gen, fields
 
-def build_model(name, fields, pretrn_encoder=None):
+def build_model(name, fields):
     src_field, tgt_field = fields
     if name == 'bilstm':
         e = RNNEncoder(src_field)
         memory_dim = e.units * e.directions
         d = BasicDecoder(tgt_field, memory_dim=memory_dim)
     else:
-        if pretrn_encoder is None:
-            token_e = RNNEncoder(src_field)
-        else:
-            token_e = pretrn_encoder
+        token_e = RNNEncoder(src_field)
         memory_dim = token_e.units * token_e.directions
         statm_e = RNNEncoder(field=None, in_dim=memory_dim)
         e = HierarchialEncoder(statm_e, token_e, intra_attn='token', cat_contxt=True)

@@ -3,8 +3,8 @@ Source code for HACS
 
 ## Requirements
 * Python 3.7
-* PyTorch 1.4+
-* torchtext 0.4+
+* PyTorch 1.4
+* torchtext 0.4
 * CUDA & CuDNN to run on GPU (recommended)
 * javalang 0.13
 * pyastyle 1.1.5

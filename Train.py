@@ -15,7 +15,7 @@ import torch.nn as nn
 from abc import abstractmethod
 
 pretrn_epoches = 55
-epoches = 65
+epoches = 70
 lr = 0.001
 adapt_lr = 0.005
 optimizer = 'adam'

@@ -243,7 +243,7 @@ if __name__ == '__main__':
     trainer.epoches = epoches - 10
     reports = trainer(train_gen, val_gen)
     
-    del trainer, model
+    del trainer, model, pretrn_model
     torch.cuda.empty_cache()
     
 ############################################################################################

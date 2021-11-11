@@ -225,7 +225,7 @@ if __name__ == '__main__':
     train_gen, fields = load_data('statms', 'train')
     val_gen, _ = load_data('statms', 'valid')
     model = build_model('hacs', fields)
-    model.encoder.token_encoder = pretrn_model.encoder.token_encoder
+    model.encoder.token_encoder = pretrn_model.encoder
     model.decoder.embedding = pretrn_model.decoder.embedding
     model.decoder.cell.cell = pretrn_model.decoder.cell.cell
     for param in pretrn_model.parameters():
@@ -264,7 +264,7 @@ if __name__ == '__main__':
     train_gen, fields = load_data('split_ast', 'train')
     val_gen, _ = load_data('split_ast', 'valid')
     model = build_model('hacs', fields)
-    model.encoder.token_encoder = pretrn_model.encoder.token_encoder
+    model.encoder.token_encoder = pretrn_model.encoder
     model.decoder.embedding = pretrn_model.decoder.embedding
     model.decoder.cell.cell = pretrn_model.decoder.cell.cell
     for param in pretrn_model.parameters():

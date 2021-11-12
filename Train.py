@@ -228,19 +228,9 @@ if __name__ == '__main__':
     model.encoder.token_encoder = pretrn_model.encoder
     model.decoder.embedding = pretrn_model.decoder.embedding
     model.decoder.cell.cell = pretrn_model.decoder.cell.cell
-    for param in pretrn_model.parameters():
-        param.requires_grad = False
     
     trainer = TeacherForcing(model, metrics=['loss', 'bleu'], smooth=0, save_per_epoch=False,
-                             epoches=10, save_path='checkpoints/HACS-token.pt')
-    reports = trainer(train_gen, val_gen)
-    
-    for param in pretrn_model.parameters():
-        param.requires_grad = True
-    trainer.optimizer.add_param_group({'params': model.encoder.token_encoder.parameters(), 'lr': lr / 10})
-    trainer.optimizer.add_param_group({'params': model.decoder.embedding.parameters(), 'lr': lr / 10})
-    trainer.optimizer.add_param_group({'params': model.decoder.cell.cell.parameters(), 'lr': lr / 10})
-    trainer.epoches = epoches - 10
+                             epoches=epoches, save_path='checkpoints/HACS-token.pt')
     reports = trainer(train_gen, val_gen)
     
     del trainer, model, pretrn_model
@@ -267,18 +257,8 @@ if __name__ == '__main__':
     model.encoder.token_encoder = pretrn_model.encoder
     model.decoder.embedding = pretrn_model.decoder.embedding
     model.decoder.cell.cell = pretrn_model.decoder.cell.cell
-    for param in pretrn_model.parameters():
-        param.requires_grad = False
-    
+        
     trainer = TeacherForcing(model, metrics=['loss', 'bleu'], smooth=0, save_per_epoch=False,
-                             epoches=10, save_path='checkpoints/HACS-AST.pt')
-    reports = trainer(train_gen, val_gen)
-    
-    for param in pretrn_model.parameters():
-        param.requires_grad = True
-    trainer.optimizer.add_param_group({'params': model.encoder.token_encoder.parameters(), 'lr': lr / 10})
-    trainer.optimizer.add_param_group({'params': model.decoder.embedding.parameters(), 'lr': lr / 10})
-    trainer.optimizer.add_param_group({'params': model.decoder.cell.cell.parameters(), 'lr': lr / 10})
-    trainer.epoches = epoches - 10
+                             epoches=epoches, save_path='checkpoints/HACS-AST.pt')
     reports = trainer(train_gen, val_gen)
     

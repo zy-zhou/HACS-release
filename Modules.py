@@ -16,7 +16,7 @@ word_embed = 128
 lstm_units = 256
 num_layers = 1
 bidirectional = True
-dropout = 0.3
+dropout = 0.1
 glob_attn = 'mul'
 
 class IntraAttention(nn.Module):

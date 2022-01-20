@@ -135,8 +135,7 @@ def tuple_map(fn, t, **kwargs):
         return None
     if type(t) not in {list, tuple}:
         return fn(t, **kwargs)
-    for s in t:
-        return tuple(tuple_map(fn, s, **kwargs) for s in t)
+    return tuple(tuple_map(fn, s, **kwargs) for s in t)
 
 def batch_bleu(hypotheses, references, smooth_method=3, n=4, average=True):
     ' expect tokenized inputs '

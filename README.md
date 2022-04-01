@@ -11,7 +11,7 @@
 * py-rouge 1.1
 
 ## Data
-Original data we used is from https://github.com/xing-hu/TL-CodeSum and https://github.com/xing-hu/EMSE-DeepCom. This repository only contains a tiny dataset to verify whether the scripts work. Be aware that this dataset is not big enough to properly train a seq2seq model.  
+The original data we used is from https://github.com/xing-hu/TL-CodeSum and https://github.com/xing-hu/EMSE-DeepCom. This repository only contains a tiny dataset to verify whether the scripts work. Be aware that this dataset is not big enough to properly train a seq2seq model.  
 
 If you want to try some new data (in Java), simply reference and replace **raw_data.json** in the **data** folder. The code to shuffle and remove the duplicate samples is not included so you have to manually do this if required.
 

@@ -18,7 +18,7 @@ If you want to try some new data (in Java), simply reference and replace **raw_d
 ## Parsing & Preprocessing
 * First parse the codes into ASTs and then split them into statement subtrees. Codes that cannot be parsed or less than 2 statements (e.g., empty body) will be marked for discard.  
   `python Tree.py`
-* Filter & tokenize the codes and comments, and then split the codes by statement. A formatter (Artistic Style) is used here. Comments that are less than 1 token after tokenization will be marked for discard. The remaining samples will be split into train/valid/test sets. Vocabularies will also be generated during this step.  
+* Filter & tokenize the codes and comments, and then split the codes by statement. A formatter (Artistic Style) is used here. Comments with less than 1 token after tokenization will be marked for discard. The remaining samples will be split into train/valid/test sets. Vocabularies will also be generated during this step.  
   `python Data.py`
 
 ## Build & Train the model
@@ -26,7 +26,7 @@ If you want to try some new data (in Java), simply reference and replace **raw_d
   `python Train.py`
 
 ## Test & Evaluate the model
-* Print the scores on test set and save the predicts.  
+* Print the scores on test set and save the predictions.  
   `python Main.py`
 
 ## Change the Parameters
